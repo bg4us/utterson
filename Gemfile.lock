@@ -1,6 +1,7 @@
 GEM
   remote: https://rubygems.org/
   specs:
+    bson (1.11.1)
     foreman (0.24.0)
       term-ansicolor (~> 1.0.5)
       thor (>= 0.13.6)
@@ -10,6 +11,8 @@ GEM
       mime-types (>= 1.16, < 3)
     mime-types (2.4.3)
     moneta (0.8.0)
+    mongo (1.11.1)
+      bson (= 1.11.1)
     pony (1.11)
       mail (>= 2.0)
     rack (1.4.0)
@@ -33,6 +36,7 @@ PLATFORMS
 DEPENDENCIES
   foreman
   moneta
+  mongo
   pony
   redcarpet
   sinatra

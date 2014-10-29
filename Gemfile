@@ -5,6 +5,7 @@ gem 'sinatra'
 gem 'redcarpet'
 gem 'uuid'
 gem 'moneta'
+gem 'mongo'
 gem 'pony'
 
 group :development do
