@@ -1,6 +1,7 @@
 require 'moneta'
 require 'uuid'
 require 'pony'
+require 'uri'
 
 configure :development do
   set :base_url, 'http://127.0.0.1:5000'
@@ -17,10 +18,20 @@ end
 
 configure :production do
   set :base_url, 'http://utterson.herokuapp.com'
-  app_cache = Moneta.new(:File, dir: 'app_cache')
+  u=URI::parse(ENV['MONGOLAB_URI'])
+  raise unless u.scheme == 'mongodb'
+  opts = {
+    host: u.host,
+    user: u.user,
+    password: u.password,
+    port: u.port,
+    db: u.path[1..-1] # Remove forward slash
+  }
+
+  app_cache = Moneta.new(:MongoOfficial, opts.merge(collection: 'app_cache'))
   set :app_cache, app_cache
 
-  signup_cache = Moneta.new(:File, dir: 'signup_cache')
+  signup_cache = Moneta.new(:MongoOfficial, opts.merge(collection: 'signup_cache'))
   set :signup_cache, signup_cache
 
   set :email_options, {      
