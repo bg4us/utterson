@@ -33,7 +33,7 @@ configure :production do
       :password => ENV['SENDGRID_PASSWORD'],
       :authentication => :plain,
       :enable_starttls_auto => true
-    },
+    }
   }
 end
 
