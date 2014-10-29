@@ -10,7 +10,7 @@ configure :development do
   signup_cache = Moneta.new(:File, dir: 'signup_cache')
   set :signup_cache, signup_cache
 
-  set email_options, {      
+  set :email_options, {      
     :via => :sendmail
   }
 end
@@ -23,7 +23,7 @@ configure :production do
   signup_cache = Moneta.new(:File, dir: 'signup_cache')
   set :signup_cache, signup_cache
 
-  set email_options, {      
+  set :email_options, {      
     :via => :smtp,
     :via_options => {
       :address => 'smtp.sendgrid.net',
