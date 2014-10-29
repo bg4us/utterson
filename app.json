@@ -1,0 +1,14 @@
+{
+  "name": "utterson",
+  "description": "Minimalistic app to collect responses from a static website",
+  "keywords": [
+    "sinatra",
+    "jekyll,"
+    "heroku",
+    "cedar",
+    "template"
+  ],
+  "website": "http://bg4us.com",
+  "repository": "https://github.com/bg4us/utterson",
+  "logo": "http://bg4us.com"
+}
