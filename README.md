@@ -24,7 +24,13 @@ Register your email:
 ```
 
 You should receive an email asking you to confirm your address.  Click/visit on the link
-on that email, and you will be taken to a page that will give you your `apptoken`, which
+on that email, and you will be given your `apptoken`:
+
+```bash
+    $curl 
+```
+
+which
 is what you will use on your webpage, and the curl commands where `<apptoken>` appears.
 
 Test (optional):
@@ -37,9 +43,10 @@ Test (optional):
 Put it into action on your own page:
 
 ```html
-<form action="https://utterson.herokuapp.com/send/<apptoken>">
-  Email: <input type="text" name="name"><br>
-  Name: <input type="text" name="email"><br>
+
+<form action="http://utterson.herokuapp.com/send/<apptoken>" method="post">
+  Email: <input type="text" name="email"><br>
+  Name: <input type="text" name="name"><br>
   Message: <textarea name="message" cols="40" rows="5"></textarea>
   <input type="submit" value="Send Message">
 </form> 
@@ -55,25 +62,22 @@ Deploy to [Heroku](http://www.heroku.com) by clicking this button.
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-Add the SendGrid Add on, or use any other mail solution and customize
-
-```
-heroku addons:add sendgrid
-```
-
-Are you more of a command line person?
-
-A [SendGrid](http://sendgrid.com) account required for email delivery.
+Add the SendGrid and MongoLab add-ons, or use any other mail and storage solution and customize
 
 ```bash
-    $ git clone https://github.com/bg4us/utterson.git
-    $ heroku create
-    $ heroku config:set SENDGRID_API_KEY=<KEY>
-    $ heroku addons:add heroku-postgresql:dev
-    $ heroku pg:promote HEROKU_POSTGRESQL_COLOR
-    $ heroku ps:scale web=1
+    $ heroku addons:add sendgrid
+    $ heroku addons:add mongolab
 ```
 
+The add-on will create the [SendGrid](http://sendgrid.com) account required for email delivery, 
+but you need to visit the SendGrid page and complete a couple of extra details before the account
+becomes active.
+
+You may want to scale your dynos, depending on the expected traffic
+
+```bash
+    $ heroku ps:scale web=1
+```
 
 Running it locally for development
 ----------------------------------
@@ -88,5 +92,7 @@ $ bundle exec foreman start
 Navigate to localhost:5000
 
 When running locally, utterson will use your local file system to store the key
-pairs, and will try using sendmail on your local machine to send messa
+pairs, and will try using sendmail on your local machine to send messages.
+
+
 
