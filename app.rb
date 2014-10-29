@@ -9,6 +9,32 @@ configure :development do
 
   signup_cache = Moneta.new(:File, dir: 'signup_cache')
   set :signup_cache, signup_cache
+
+  set email_options, {      
+    :via => :sendmail
+  }
+end
+
+configure :production do
+  set :base_url, 'http://utterson.herokuapp.com'
+  app_cache = Moneta.new(:File, dir: 'app_cache')
+  set :app_cache, app_cache
+
+  signup_cache = Moneta.new(:File, dir: 'signup_cache')
+  set :signup_cache, signup_cache
+
+  set email_options, {      
+    :via => :smtp,
+    :via_options => {
+      :address => 'smtp.sendgrid.net',
+      :port => '587',
+      :domain => 'heroku.com',
+      :user_name => ENV['SENDGRID_USERNAME'],
+      :password => ENV['SENDGRID_PASSWORD'],
+      :authentication => :plain,
+      :enable_starttls_auto => true
+    },
+  }
 end
 
 get '/' do
@@ -28,6 +54,7 @@ post '/setup/:email' do
   uuid = UUID.new
   authkey = uuid.generate
   settings.signup_cache[email] = authkey
+  Pony.options = settings.email_options
   Pony.mail(:to => email, 
           :from => 'utterson@bg4us.com', 
           :subject => 'Confirm your email', 
@@ -69,6 +96,7 @@ post '/send/:appid' do
   # Fail if no parameters
   halt 400 if !email || !name || !message
 
+  Pony.options = settings.email_options
   Pony.mail(:to => email, 
             :from => sender, 
             :subject => 'New Message', 

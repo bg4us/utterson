@@ -20,7 +20,7 @@ Usage
 Register your email:
 
 ```bash
-    $ curl --data "email=<your_email>" https://utterson.herokuapp.com/register    
+    $ curl --data "email=<your_email>" https://utterson.herokuapp.com/setup    
 ```
 
 You should receive an email asking you to confirm your address.  Click/visit on the link
