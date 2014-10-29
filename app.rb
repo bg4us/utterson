@@ -58,7 +58,7 @@ post '/setup/:email' do
   Pony.mail(:to => email, 
           :from => 'utterson@bg4us.com', 
           :subject => 'Confirm your email', 
-          :body => "Please visit #{base_url}/confirm/#{email}/#{authkey} to get your app token")
+          :body => "Please visit #{settings.base_url}/confirm/#{email}/#{authkey} to get your app token")
   status 202
 end
 
